@@ -1,0 +1,98 @@
+body{
+    background-image:url('../../assets/images/farm.jpg') ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.login{
+    width:100%;
+    height:100vh;
+
+    margin-right: auto;
+    margin-left: auto;
+    /*aligning content in center*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+  width: 65%;
+  border-radius: 1rem;
+  background-color: #eee;
+  padding: 1rem 3rem 3rem 3rem;
+
+}
+
+.login-heading{
+    font-family: "Baloo Da 2", serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #272727;
+    margin-bottom: 1.7rem;
+    text-align: center;
+}
+
+.input-group{
+    position: relative;
+}
+
+
+.field{
+  width: 14rem;
+  /* background-color: transparent; */
+  background-color: rgb(241, 241, 241);
+  border: none;
+  border-bottom: 0.2rem dashed #636363;
+  margin: 0.9rem 0;
+  padding: 0.3rem 0.3rem 0.3rem 0;
+  font-family: "Muli", serif;
+  font-size: 0.9rem;
+  color: #4b4b4b;
+}
+
+.input-group input {
+    height: 1rem;
+}
+
+.field:focus {
+    border-bottom-style: solid;
+}
+
+.input-group label {
+  line-height: 0.3rem;
+    position: absolute;
+    left: 0;
+    font-family: "Baloo Da 2", serif;
+    font-size: 0.6rem;
+    color: #4b4b4b;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+ 
+.submit-btn{
+  width: 15rem;
+  height: 1.9rem;
+  background-color: #c29525;
+  color: #fff;
+  border: none;
+  margin-top: 0.9rem;
+  font-family: "Muli", serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+  text-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.3);
+
+}
+
+.sign-up{
+    font-family: "Baloo Da 2", serif;
+    font-size: 0.7rem;
+
+}
+

@@ -1,0 +1,54 @@
+{% if message %}
+<script>
+  alert('{{message}}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- <link href="styles/style.css"rel="stylesheet"> -->
+    <link href="../../static/css/main/loginstyle.css" rel="stylesheet" />
+  </head>
+  <body>
+    <section class="login">
+      <div class="login-wrapper">
+        <div class="content">
+          <h1 class="login-heading">Login</h1>
+          <form action="/login/" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+              <label class="input-label">Email</label>
+              <input type="email" class="field" name="email"/>
+            </div>
+            <div class="input-group">
+              <label class="input-label">Password</label>
+              <input type="password" class="field" name="password"/>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label">Role: </label>
+              <input list="ut" class="field" name="role"/>
+              <datalist id="ut">
+                <option value="Farmer"></option>
+                <option value="Quality checker"></option>
+                <option value="Consumer"></option>
+              </datalist>
+            </div>
+
+            <div>
+              <input type="submit" class="submit-btn" value="Login"/>
+            </div>
+
+            <!-- <p class="sign-up">
+              Don't have an account? <a href="../../templates/main/signup.html">Sign up here..</a>
+            </p> -->
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
