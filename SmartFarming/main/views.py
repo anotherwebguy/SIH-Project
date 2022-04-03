@@ -56,7 +56,7 @@ def signup(request):
     db.child('users').child(user['localId']).set(data,user['idToken'])
     return render(request,'main/login.html')
 
-def login(request):
+def home(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
     role = request.POST.get('role')
