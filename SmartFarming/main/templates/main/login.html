@@ -18,7 +18,7 @@
       <div class="login-wrapper">
         <div class="content">
           <h1 class="login-heading">Login</h1>
-          <form action="/login/" method="post">
+          <form action="/home/" method="post">
             {% csrf_token %}
             <div class="input-group">
               <label class="input-label">Email</label>
@@ -42,10 +42,10 @@
             <div>
               <input type="submit" class="submit-btn" value="Login"/>
             </div>
-
-            <!-- <p class="sign-up">
-              Don't have an account? <a href="../../templates/main/signup.html">Sign up here..</a>
-            </p> -->
+            <br>
+            <h1 class="sign-up" style="justify-content: center;">
+              Don't have an account? <a href="{%url 'register' %}">Sign up here..</a>
+            </h1>
           </form>
         </div>
       </div>
