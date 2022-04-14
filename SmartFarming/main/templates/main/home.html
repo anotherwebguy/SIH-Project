@@ -1,6 +1,8 @@
-
-    <h1>Hi</h1>
-    <div>
-        <!--Uncomment kr dena-->
-        <!-- <button type="submit" onclick="location.href='{% url 'logout' %}'">Logout</button> -->
-    </div>
+<h1>Hi</h1>
+<div>
+    <!--Uncomment kr dena-->
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</div>
