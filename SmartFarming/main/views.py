@@ -9,17 +9,18 @@ import json
 from django.http import JsonResponse
 import pyqrcode
 import collections
+from django.views.decorators.cache import cache_control
 from pyqrcode import QRCode
 # Create your views here.
 
 config = {
-    'apiKey': "AIzaSyCxwXqN_3rokuLqVsDCa9UsfRbVblHpj7o",
-    'authDomain': "sih-project-b6cc5.firebaseapp.com",
-    'projectId': "sih-project-b6cc5",
-    'storageBucket': "sih-project-b6cc5.appspot.com",
-    'messagingSenderId': "187249171665",
-    'databaseURL': 'https://sih-project-b6cc5-default-rtdb.firebaseio.com/',
-    'appId': "1:187249171665:web:237a2a6e9dae33996539f0"
+    'apiKey': "AIzaSyD7M-q1iWhGNNfbubsLqk5c6JkPcpsncWk",
+    'authDomain': "test-27aa1.firebaseapp.com",
+    'projectId': "test-27aa1",
+    'storageBucket': "test-27aa1.appspot.com",
+    'messagingSenderId': "719972795548",
+    'databaseURL': 'https://test-27aa1-default-rtdb.firebaseio.com',
+    'appId': "1:719972795548:web:ef9f14894c265919b89959"
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -38,52 +39,53 @@ def register(request):
 def signin(request):
     return render(request,'main/login.html')
 
+
 def signup(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
-    username = request.POST.get('username')
+    public_key = request.POST.get('address')
     role = request.POST.get('role')
-    address = request.POST.get('address')
+    name = request.POST.get('username')
 
     try:
-        user = auth.create_user_with_email_and_password(email, password)
+        user = auth.create_user_with_email_and_password(email,password)
+        print(user['idToken'])
+        uid = user['localId']
+        print(uid)
+        data = {
+            "name": name,
+            "email": email,
+            "address": public_key,
+            "role": role,
+        }
+        result = db.child("user").child(role).child(uid).set(data)
+        print(result)
     except:
-        message="Unable to create account"
-        return render(request,'main/signup.html')
-    
-    print(user)
-    data = {"name":username,"email":email,"address":address,"role":role,"uid":user['localId']}
-    db.child('users').child(user['localId']).set(data,user['idToken'])
+        return redirect('register')
     return render(request,'main/login.html')
 
-def home(request):
+
+def login(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
     role = request.POST.get('role')
-
+    
     try:
         user = auth.sign_in_with_email_and_password(email, password)
+        user_details = db.child('user').child(role).get()
+        check = False
+        for u in user_details:
+             if u.key() == user['localId'] and u.val()['role'] == role:
+                 check = True
+                 break
+        request.session['uid'] = user['localId']
     except:
-        message="Invalid credentials"
-        return render(request,'main/login.html',{"message":message})
-
-    print(user)
-    details = db.child('users').child(user['localId']).get().val()
-    frole = details['role']
-
-    if frole == role:
-        session_id = user['idToken']
-        request.session['uid']=str(session_id)
-        return render(request,'main/home.html')
-    else:
-        message="Invalid credentials"
-        return render(request,'main/login.html',{"message":message})
-    
+        return render(request,'main/login.html',{"message":"Invalid credentials"})
+    return redirect('index')
 
 def logout(request):
-    _auth.logout(request)
     try:
         del request.session['uid']
     except:
         pass
-    return render(request,'main/login.html')
+    return redirect('welcome')
